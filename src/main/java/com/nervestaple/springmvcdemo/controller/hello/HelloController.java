@@ -1,4 +1,4 @@
-package com.nervestaple.springmvcdemo.hello;
+package com.nervestaple.springmvcdemo.controller.hello;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;

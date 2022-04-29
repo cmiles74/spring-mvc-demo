@@ -1,0 +1,26 @@
+services:
+
+  # database
+  database:
+    hostname: postgresql
+    image: postgres:14
+    ports:
+      - 5432:5432
+    environment:
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASSWORD}
+      - POSTGRES_DB=${DATABASE_DB}
+
+  # database migrations
+  migration:
+    hostname: flyway
+    image: flyway/flyway:latest
+    environment:
+      - FLYWAY_URL=jdbc:postgresql://${DATABASE_HOST}/${DATABASE_DB}
+      - FLYWAY_USER=${DATABASE_USER}
+      - FLYWAY_PASSWORD=${DATABASE_PASSWORD}
+    volumes:
+      - ./migration:/flyway/migration
+    command: -locations=filesystem:/flyway/migration -connectRetries=60 migrate
+    depends_on:
+      - database
