@@ -15,7 +15,6 @@ public class Startup implements InitializingBean  {
 
     private ToDoItemService service;
 
-    @Autowired
     public Startup(ToDoItemService service) {
         this.service = service;
     }
@@ -25,10 +24,6 @@ public class Startup implements InitializingBean  {
         if (service.countAll() < 1) {
             log.info("Creating our initial to-do items...");
             service.save(new ToDoItem("Add more to-do items!"));
-        }
-
-        for (ToDoItem item : service.findAll()) {
-            log.info(item.toString());
         }
     }
 }
