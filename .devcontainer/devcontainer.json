@@ -1,0 +1,30 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.234.0/containers/java
+{
+	"name": "spring-mvc-demo",
+	"dockerComposeFile": "docker-compose.yml",
+	"service": "development",
+	"remoteUser": "vscode",
+	"workspaceFolder": "/home/vscode/workspace",
+
+	// Set *default* container specific settings.json values on container create.
+	"settings": { 
+		"java.home": "/docker-java-home"
+	},
+
+	// Add the IDs of extensions you want installed when the container is created.
+	"extensions": [
+		"vscjava.vscode-java-pack",
+		"ckolkman.vscode-postgres"
+	],
+
+	// Use 'forwardPorts' to make a list of ports inside the container available locally.
+	"forwardPorts": [8080],
+	"appPort": [5432],
+
+	// Use 'postCreateCommand' to run commands after the container is created.
+	// "postCreateCommand": "java -version",
+
+	// Comment out to connect as root instead. More info: https://aka.ms/vscode-remote/containers/non-root.
+	"remoteUser": "vscode"
+}

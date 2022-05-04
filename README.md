@@ -8,11 +8,29 @@ getting the current versions of these libraries together to see how they work.
 
 ## Working on the Project
 
+This project is all set to use [GitHub Codespaces][codespaces] to get you
+working with the project as quickly as possible. If you prefer to develop
+locally, scripts for [Docker][docker] are also included.
+
+### Working Through GitHub Codespaces
+
+If you use GitHub and have an active account, you can get the project
+up-and-running (and yourself contributing) in just one click. From the project
+homepage, click on the "Code" button in the upper right and then select the
+"Codespaces" tab. From there you can click the button to "Create codespace on
+main" (or another branch if you prefer) and GitHub will start up a new
+development environment. Once that is all set you will be dropped at the
+web-based Visual Studio Code editor where you can start working with the
+project. The Java extension pack as well as a PostgreSQL extention will be
+automatically installed for you.
+
+### Working Under Docker
+
 This project uses [Docker][docker] to manage your development environment. 
 There is a [Docker Compose][docker-compose] script that you may invoke to bring
 up a database and run the migrations to get you started with development. All
 of the various settings will be read from a `.env` file, a sample is provided.
-Copy the sample file and then edit it as you see fit.
+To get started quickly, simply copy the file and leave the content as-is.
 
     $ cp env-sample .env
 
@@ -23,15 +41,16 @@ migrations. The `-d` flags runs this in the background. :wink:
 
      $ docker compose up -d
 
-Next, edit the `application.properties` file in the `src/resources` directory
-to have the correct database URL, username and password (they come set to match
-the `env-sample` file). When you run the application in your IDE, it will be 
-able to connect to the database server. 
-
 When you're done working on the project you may shut down the database server
 with the following command.
 
-     $ docker compose down`
+     $ docker compose down
+
+The containers in the Docker environment will use the values in the `.env`
+file to connect to the database server. When you run your application locally
+the settings in the `application.properties` file will be used. If you
+change the values in the `.env` file be sure to update the values in the
+`application.properties` file as well.
 
 ### Building and Running
 
@@ -47,7 +66,7 @@ build the project and write the Java archive (JAR) file to the `target`
 directory.
 
 The default `application.properties` that come with the project expect that the
-PostgreSQL database server will be available locally. You may use the same Docker
+PostgreSQL database server will be available. You may use the same Docker
 Compose stack that you use during development.
 
      $ docker compose up -d
@@ -68,10 +87,12 @@ When you are done, don't forget to `down` your Docker containers.
 To start the application from inside your IDE, point your IDE at the 
 bootstrapping class. It contains a `main` method that will start the application.
 
-* `com.nervestaple.springmvcdemo.SpringMvcDemoApplication`
+     com.nervestaple.springmvcdemo.SpringMvcDemoApplication
 
 ----
 [docker]: https://www.docker.com/
 [docker-compose]: https://docs.docker.com/compose/
 [maven]: https://maven.apache.org/
 [java]: https://adoptium.net/temurin/releases/
+[codespaces]: https://github.com/features/codespaces
+[devcontainer]: https://code.visualstudio.com/docs/remote/containers
