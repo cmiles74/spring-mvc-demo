@@ -1,0 +1,23 @@
+name: Continuous Integration
+
+on:
+  push:
+    branches:
+      - 'main'
+
+jobs:
+  build:
+    runs-on: [ubuntu-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 17
+      - name: Start Environment
+        run: cp env-sample .env && docker compose up -d --quiet-pull
+      - name: Build and Test
+        run: mvn --batch-mode -q test
+      - name: Stop Environment
+        run: docker compose down
