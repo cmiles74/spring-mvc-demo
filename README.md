@@ -1,28 +1,77 @@
-# Spring MVC Demo Project
+# To Do List: Spring MVC Demo Project
 
-This is a simple demo project that uses Spring Boot with MVC and Thymeleaf. The
-whole point, really, it to get the new versions of these libraries together and
-to see if I can make them put a small, simple web application together.
+This is a simple demo project that uses Spring Boot with MVC and Thymeleaf. It
+provides a very simple to-do list application. This project is about 
+getting the current versions of these libraries together to see how they work.
 
-## Contributing to the Project
+![Screenshot](https://github.com/cmiles74/spring-mvc-demo/blob/main/screenshot.png)
+
+## Working on the Project
 
 This project uses [Docker][docker] to manage your development environment. 
 There is a [Docker Compose][docker-compose] script that you may invoke to bring
 up a database and run the migrations to get you started with development. All
-of the various settings will be read from a `.env` file, a smaple is provided.
+of the various settings will be read from a `.env` file, a sample is provided.
 Copy the sample file and then edit it as you see fit.
 
     $ cp env-sample .env
 
 With that done, run `docker-compose` from the root of the project to get a 
-PostgreSQL container up and running.
+PostgreSQL container up and running. The command below will start up a container
+with PostgreSQL, another container with Flyway and then apply the database 
+migrations. The `-d` flags runs this in the background. :wink:
 
-     $ docker-compose
+     $ docker compose up -d
 
 Next, edit the `application.properties` file in the `src/resources` directory
-to have the correct database URL, username and password. When you run the
-application in your IDE, it will be able to connect to the database server.
+to have the correct database URL, username and password (they come set to match
+the `env-sample` file). When you run the application in your IDE, it will be 
+able to connect to the database server. 
+
+When you're done working on the project you may shut down the database server
+with the following command.
+
+     $ docker compose down`
+
+### Building and Running
+
+This project requires [Java][java] to build and run, it uses [Maven][maven] 
+to manage the project itself. You will need to have Maven installed and 
+available on your path. With that setup, you can ask Maven to build the 
+project.
+
+     $ mvn package
+
+Maven will ensure that all of the required dependencies are available and will
+build the project and write the Java archive (JAR) file to the `target`
+directory.
+
+The default `application.properties` that come with the project expect that the
+PostgreSQL database server will be available locally. You may use the same Docker
+Compose stack that you use during development.
+
+     $ docker compose up -d
+
+Now that Docker is running, you may start the application with the invocation 
+below.
+
+     $ java -jar target/spring-mvc-demo-0.0.1-SNAPSHOT.jar
+
+The application should be available on [your local machine](http://localhost:8080).
+
+* [http://localhost:8080](http://localhost:8080)
+
+When you are done, don't forget to `down` your Docker containers.
+
+#### Starting from Your IDE
+
+To start the application from inside your IDE, point your IDE at the 
+bootstrapping class. It contains a `main` method that will start the application.
+
+* `com.nervestaple.springmvcdemo.SpringMvcDemoApplication`
 
 ----
 [docker]: https://www.docker.com/
 [docker-compose]: https://docs.docker.com/compose/
+[maven]: https://maven.apache.org/
+[java]: https://adoptium.net/temurin/releases/
