@@ -9,7 +9,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
@@ -64,6 +63,13 @@ public class ToDoController {
     public String complete(Model model,
                            @PathVariable("id") Long id) {
         service.complete(id);
+        return "redirect:/";
+    }
+
+    @GetMapping(value = "/delete-item/{id}")
+    public String delete(Model model,
+                         @PathVariable("id") Long id) {
+        service.delete(id);
         return "redirect:/";
     }
 

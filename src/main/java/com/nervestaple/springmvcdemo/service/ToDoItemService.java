@@ -26,6 +26,7 @@ public class ToDoItemService {
 
     public ToDoItem save(ToDoItem itemThis) {
         ToDoItem item = null;
+
         if(itemThis.getId() != null) {
             item = repository.findById(itemThis.getId()).get();
             item.setDescription(itemThis.getDescription());
@@ -49,6 +50,10 @@ public class ToDoItemService {
         item.setCompletedAt(LocalDateTime.now());
         repository.save(item);
         return item;
+    }
+
+    public void delete(Long id) {
+        repository.deleteById(id);
     }
 
     public Page<ToDoItem> findPaginated(Pageable pageable) {

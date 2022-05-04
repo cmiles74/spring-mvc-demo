@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface ToDoItemRepository extends PagingAndSortingRepository<ToDoItem, Long> {
-
     @Query("select count(id) from ToDoItem")
     Long countAll();
 }
